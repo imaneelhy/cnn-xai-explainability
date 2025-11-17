@@ -72,18 +72,38 @@ Evaluations are done on **100 correctly classified test images**.
 
 ---
 
-## 4. Qualitative Examples
 
-The notebook also visualizes explanations side-by-side:
 
-- Original image + predicted class
-- Grad-CAM heatmap
-- Saliency heatmap
-- Integrated Gradients heatmap
 
-These plots show that:
-- Grad-CAM focuses on broad regions over the main object (e.g., the ship hull).
-- Saliency maps highlight sharp edges and high-frequency details, sometimes including background.
-- Integrated Gradients produce smoother maps that combine object and some contextual pixels.
+## Qualitative Examples
+
+The figure below shows qualitative comparisons between the three explanation
+methods on correctly classified CIFAR-10 images.
+
+<img width="1150" height="304" alt="download (11)" src="https://github.com/user-attachments/assets/82969273-5dba-4bd9-b187-e72be79d26aa" />
+<img width="1150" height="304" alt="download (12)" src="https://github.com/user-attachments/assets/771b64c9-1e0b-4552-9775-730397b29cf9" />
+<img width="1150" height="304" alt="download (14)" src="https://github.com/user-attachments/assets/7bf1affb-0ef6-42eb-ab68-be10198d55de" />
+
+Each row corresponds to one test image (e.g. *ship*, *truck*).  
+From left to right:
+
+1. **Original** – the input image with the model’s predicted class.
+2. **Grad-CAM** – produces a smooth, blob-like heatmap that highlights large,
+   semantically meaningful regions. In the examples above, Grad-CAM concentrates
+   on the main object: the hull of the ship and the body of the truck.
+3. **Saliency** – based on raw input gradients. These maps are much more
+   fragmented and tend to emphasize high-frequency edges and small details,
+   including some background pixels.
+4. **Integrated Gradients** – smoother than raw saliency but still more
+   fine-grained than Grad-CAM. Attributions are spread across important object
+   parts (e.g. the front of the truck, the upper structure of the ship) while
+   also assigning some weight to surrounding context.
+
+Overall, the examples illustrate that:
+- Grad-CAM gives a coarse, object-level view of what the network is “looking at”.
+- Saliency Maps and Integrated Gradients reveal finer pixel-level structure,
+  but can appear noisier.
+- Different methods highlight overlapping but not identical regions, which
+  matches the quantitative similarity scores reported above.
 
 
